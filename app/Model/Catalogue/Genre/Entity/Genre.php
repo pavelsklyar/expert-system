@@ -10,8 +10,8 @@ final class Genre
 {
     public readonly GenreId $id;
     public readonly string $title;
-    public readonly DateTimeImmutable $createdAt;
-    public readonly DateTimeImmutable $updatedAt;
+    public DateTimeImmutable $createdAt;
+    public DateTimeImmutable $updatedAt;
 
     /**
      * @param GenreId $id Идентификатор
@@ -27,5 +27,14 @@ final class Genre
         $date = new DateTimeImmutable();
         $this->createdAt = $date;
         $this->updatedAt = $date;
+    }
+
+    public static function create(GenreId $id, string $title, DateTimeImmutable $createdAt, DateTimeImmutable $updatedAt): self
+    {
+        $entity = new self($id, $title);
+        $entity->createdAt = $createdAt;
+        $entity->updatedAt = $updatedAt;
+
+        return $entity;
     }
 }

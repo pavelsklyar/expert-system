@@ -12,8 +12,8 @@ final class Author
     public readonly string $lastName;
     public readonly string $firstName;
     public readonly ?string $middleName;
-    public readonly DateTimeImmutable $createdAt;
-    public readonly DateTimeImmutable $updatedAt;
+    public DateTimeImmutable $createdAt;
+    public DateTimeImmutable $updatedAt;
 
     /**
      * @param AuthorId $id Идентификатор
@@ -35,5 +35,14 @@ final class Author
         $date = new DateTimeImmutable();
         $this->createdAt = $date;
         $this->updatedAt = $date;
+    }
+
+    public static function create(AuthorId $id, string $lastName, string $firstName, ?string $middleName, DateTimeImmutable $createdAt, DateTimeImmutable $updatedAt): self
+    {
+        $entity = new self($id, $lastName, $firstName, $middleName);
+        $entity->createdAt = $createdAt;
+        $entity->updatedAt = $updatedAt;
+
+        return $entity;
     }
 }

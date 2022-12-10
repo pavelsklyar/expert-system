@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Model\Catalogue\Genre\Entity;
 
 use Webmozart\Assert\Assert;
-use function App\Model\Genre\Entity\uuid_create;
 
 final class GenreId
 {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Model\Catalogue\Author\Entity;
+namespace App\Model\Expert\Condition\Entity;
 
 use Webmozart\Assert\Assert;
 
-final class AuthorId
+class ConditionId
 {
     /**
      * @param non-empty-string $value

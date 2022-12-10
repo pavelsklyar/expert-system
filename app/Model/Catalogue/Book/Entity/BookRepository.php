@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Model\Catalogue\Book\Entity;
 
+use App\Model\Catalogue\Author\Entity\AuthorId;
+use App\Model\Catalogue\Genre\Entity\GenreId;
+use DateTimeImmutable;
 use Illuminate\Database\ConnectionInterface;
 
 final class BookRepository
@@ -11,6 +14,60 @@ final class BookRepository
     public function __construct(
         private readonly ConnectionInterface $connection,
     ) {
+    }
+
+    /**
+     * @param list<BookId> $ids
+     * @return list<Book>
+     */
+    public function getMany(array $ids): array
+    {
+        $bookIds = [];
+        foreach ($ids as $id) {
+            $bookIds[] = $id->toString();
+        }
+
+        $data = $this->connection
+            ->table('books', 'b')
+            ->selectRaw(<<<'SQL'
+                b.*,
+                string_agg(distinct ba.author_id::varchar, ',') as authors,
+                string_agg(distinct bg.genre_id::varchar, ',') as genres
+            SQL)
+            ->leftJoin('book_authors as ba', 'ba.book_id', '=', 'b.id')
+            ->leftJoin('book_genres as bg', 'bg.book_id', '=', 'b.id')
+            ->whereIn('id', $bookIds)
+            ->groupBy('b.id')
+            ->get()
+            ->toArray();
+
+        $entities = [];
+        foreach ($data as $item) {
+            $authors = [];
+            foreach (explode(',', $item->authors) as $authorId) {
+                $authors[] = AuthorId::fromString($authorId);
+            }
+
+            $genres = [];
+            foreach (explode(',', $item->genres) as $genreId) {
+                $genres[] = GenreId::fromString($genreId);
+            }
+            
+            $entities[] = Book::create(
+                id: BookId::fromString($item->id),
+                title: $item->title,
+                description: $item->description,
+                rating: (float)$item->rating,
+                language: Language::from($item->language),
+                year: $item->year,
+                authorIds: $authors,
+                genreIds: $genres,
+                createdAt: DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $item->created_at),
+                updatedAt: DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $item->updated_at),
+            );
+        }
+
+        return $entities;
     }
 
     public function persist(Book $book): void

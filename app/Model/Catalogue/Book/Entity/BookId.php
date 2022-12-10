@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Model\Catalogue\Book\Entity;
 
 use Webmozart\Assert\Assert;
-use function App\Model\Book\Entity\uuid_create;
 
 final class BookId
 {

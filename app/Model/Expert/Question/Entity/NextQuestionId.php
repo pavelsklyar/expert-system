@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Model\Expert\Question\Entity;
 
 use Webmozart\Assert\Assert;
-use function App\Model\Question\Entity\uuid_create;
 
 class NextQuestionId
 {

@@ -18,7 +18,7 @@ use Illuminate\Console\Command;
 
 final class LoadDatabaseCommand extends Command
 {
-    protected $signature = 'app:load-db';
+    protected $signature = 'app:catalogue:load';
 
     public function __construct(
         private readonly AuthorRepository $authorRepository,
