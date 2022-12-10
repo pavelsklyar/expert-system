@@ -1,6 +1,5 @@
 <?php
 
-use App\Infrastructure\CommandBus\CommandBusServiceProvider;
 use Illuminate\Support\Facades\Facade;
 
 return [
@@ -189,9 +188,9 @@ return [
         \App\Infrastructure\DBAL\DBALServiceProvider::class,
         \App\Infrastructure\Event\EventServiceProvider::class,
 
-        \App\Model\Catalogue\CataloguesServiceProvider::class,
-        \App\Model\Question\QuestionServiceProvider::class,
-        \App\Model\Expert\ExpertServiceProvider::class,
+        \App\Model\Catalogue\Catalogue\CataloguesServiceProvider::class,
+        \App\Model\Expert\Question\QuestionServiceProvider::class,
+        \App\Model\Expert\Expert\ExpertServiceProvider::class,
     ],
 
     /*
