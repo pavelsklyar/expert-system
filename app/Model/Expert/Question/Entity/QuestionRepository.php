@@ -64,7 +64,7 @@ final class QuestionRepository
     }
 
     /**
-     * @return Question
+     * @return list<Question>
      */
     public function getMany(array $ids): array
     {

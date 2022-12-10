@@ -22,7 +22,7 @@ final class NextQuestionRepository
     }
 
     /**
-     * @return NextQuestion
+     * @return list<NextQuestion>
      */
     public function getForQuestion(QuestionId $id): array
     {

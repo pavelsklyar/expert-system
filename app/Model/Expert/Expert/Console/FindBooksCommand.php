@@ -43,7 +43,7 @@ class FindBooksCommand extends Command
                     continue;
                 }
 
-                if (!$nextQuestion->condition->isApplied($answer)) {
+                if (!$nextQuestion->condition->isApplicable($answer)) {
                     continue;
                 }
 

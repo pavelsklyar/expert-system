@@ -15,7 +15,7 @@ final class NextQuestionCondition
     ) {
     }
 
-    public function isApplied(int|string $value): bool
+    public function isApplicable(int|string $value): bool
     {
         return match ($this->operator) {
             NextQuestionConditionOperator::Equals => $value === $this->value,
